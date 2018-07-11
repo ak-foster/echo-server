@@ -4,21 +4,23 @@ import sys
 
 def client(msg, log_buffer=sys.stderr):
     server_address = ('localhost', 10000)
-    # TODO: Replace the following line with your code which will instantiate
-    #       a TCP socket with IPv4 Addressing, call the socket you make 'sock'
-    sock = None
+    # Instantiate a TCP socket with IPv4 Addressing
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_IP)
     print('connecting to {0} port {1}'.format(*server_address), file=log_buffer)
-    # TODO: connect your socket to the server here.
 
-    # you can use this variable to accumulate the entire message received back
-    # from the server
-    received_message = ''
+    # Connect to the socket
+    sock.connect(server_address)
+
+    # Accumulate the entire message received back from the server
+    received_message = sock.recv(1024)
 
     # this try/finally block exists purely to allow us to close the socket
     # when we are finished with it
     try:
         print('sending "{0}"'.format(msg), file=log_buffer)
-        # TODO: send your message to the server here.
+        # Send your message to the server
+        my_message = input("> ")
+        sock.sendall(my_message.encode('utf-8'))
 
         # TODO: the server should be sending you back your message as a series
         #       of 16-byte chunks. Accumulate the chunks you get to build the
