@@ -13,13 +13,12 @@ def client(msg, log_buffer=sys.stderr):
 
     # Accumulate the entire message received back from the server
     received_message = ''
-
+    # my_message = input("> ")
     # this try/finally block exists purely to allow us to close the socket
     # when we are finished with it
     try:
         print('sending "{0}"'.format(msg), file=log_buffer)
         # Send your message to the server
-        my_message = input("> ")
         sock.sendall(my_message.encode('utf-8'))
 
         # Log each chunk of the message received and append to build received message
@@ -38,6 +37,7 @@ def client(msg, log_buffer=sys.stderr):
 
         # return the entire reply received from the server
         return received_message
+
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:

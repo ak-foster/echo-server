@@ -5,6 +5,7 @@ import sys
 def server(log_buffer=sys.stderr):
     # set an address for our server
     address = ('127.0.0.1', 10000)
+
     # instantiate a TCP socket with IPv4 Addressing, call the socket you make 'sock'
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -19,10 +20,10 @@ def server(log_buffer=sys.stderr):
     try:
         # the outer loop controls the creation of new connection sockets. The
         # server will handle each incoming connection one at a time.
+        # make a new socket when a client connects, called 'conn',
+
         while True:
             print('waiting for a connection', file=log_buffer)
-
-            # make a new socket when a client connects, called'conn',
             conn, addr = sock.accept()
 
             try:
